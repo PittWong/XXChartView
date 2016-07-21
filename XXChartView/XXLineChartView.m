@@ -98,11 +98,12 @@
 }
 
 - (void)drawRect:(CGRect)rect {
+    
     CGFloat width = self.bounds.size.width;
     CGFloat height = self.bounds.size.height;
     
     //画轴线
-    [self.axisColor setStroke];
+    [self.axisColor set];
     CGFloat xAxisX = 0.1*width;
     CGFloat xAxisY = 0.8*height;
     CGFloat xAxisWidth = 0.8*width;
@@ -113,13 +114,20 @@
     [xAxis stroke];
     
     CGFloat yAxisX = 0.15*width;
-    CGFloat yAxisY = 0.05*height;
-    CGFloat yAxisHeight = 0.9*height;
+    CGFloat yAxisY = 0.1*height;
+    CGFloat yAxisY2 = xAxisY + 15;
     UIBezierPath *yAxis = [UIBezierPath bezierPath];
     [yAxis moveToPoint:CGPointMake(yAxisX, yAxisY)];
-    [yAxis addLineToPoint:CGPointMake(yAxisX, yAxisY + yAxisHeight)];
+    [yAxis addLineToPoint:CGPointMake(yAxisX, yAxisY2)];
     yAxis.lineWidth = 1;
     [yAxis stroke];
+    
+    UIBezierPath *yAxisArraw = [UIBezierPath bezierPath];
+    [yAxisArraw moveToPoint:CGPointMake(yAxisX, yAxisY)];
+    [yAxisArraw addLineToPoint:CGPointMake(yAxisX + 3, yAxisY + 10)];
+    [yAxisArraw addLineToPoint:CGPointMake(yAxisX - 3, yAxisY + 10)];
+    [yAxisArraw fill];
+    
 
     CGFloat yTittleMargin = (xAxisY - yAxisY)/(self.yTittleCount + 1);
     for (int i = 0; i < self.yTittleCount; i++) {
